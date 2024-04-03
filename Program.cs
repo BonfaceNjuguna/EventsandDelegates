@@ -4,13 +4,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        var video = new Video() { Title = "Video 1" };
-        var videoEncoder = new VideoEncoder();
-        var mailService = new MailService();
-        var messageService = new MessageService();
+		OrderService orderService = new OrderService();
+		DeliveryService deliveryService = new DeliveryService();
+		NotificationService notificationService = new NotificationService();
 
-        videoEncoder.VideoEncoded += mailService.OnVideoEncoded;
-        videoEncoder.VideoEncoded += messageService.OnVideoEncoded;
-        videoEncoder.Encode(video);
+		orderService.OrderPlaced += deliveryService.DeliverArticles;
+		orderService.OrderPlaced += notificationService.NotifyCustomer;
+
+		orderService.PlaceOrder();
     }
 }
