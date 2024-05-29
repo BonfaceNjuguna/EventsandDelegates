@@ -12,5 +12,12 @@ namespace ProductFactory
 		{
 			return product.Price < otherProduct.Price;
 		}
+
+		public static int CountVowels(this string str)
+		{
+			if(str == null) return 0;
+			char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+			return str.Count(c => vowels.Contains(c));
+		}
 	}
 }

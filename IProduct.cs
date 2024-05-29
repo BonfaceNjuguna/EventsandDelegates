@@ -4,5 +4,6 @@
 	{
 		void ShowInfo();
 		double Price { get; set; }
+		string Description { get; set; }
 	}
 }
