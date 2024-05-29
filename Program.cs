@@ -4,13 +4,16 @@
 	{
 		private static void Main()
 		{
-			IProduct spoon = ProductFactory.CreateProduct<Spoon>();
+			ProductCreated<IProduct> productCreatedHandler = OnProductCreated;
+			ProductFactory productFactory = new ProductFactory(productCreatedHandler);
+
+			IProduct spoon = productFactory.CreateProduct<Spoon>();
 			spoon.Price = 10.0;
 			spoon.Description = "This is a spoon used for eAting";
 			int spoonVowelCount = spoon.Description.CountVowels();
 			Console.WriteLine($"The spoon description has {spoonVowelCount} vowels");
 
-			IProduct fork = ProductFactory.CreateProduct<Fork>();
+			IProduct fork = productFactory.CreateProduct<Fork>();
 			fork.Price = 20.0;
 			fork.Description = "This is a fork used for eating";
 			int forkVowelCount = fork.Description.CountVowels();
@@ -24,6 +27,11 @@
 			{
 				Console.WriteLine("The fork is cheaper");
 			}
+		}
+
+		private static void OnProductCreated(IProduct product)
+		{
+			Console.WriteLine($"Product created: {product.GetType().Name}");
 		}
 	}
 }

@@ -1,11 +1,19 @@
 ﻿namespace ProductFactory
 {
-	internal static class ProductFactory
+	internal class ProductFactory
 	{
-		public static T CreateProduct<T>() where T : IProduct, new()
+		private readonly ProductCreated<IProduct> _productCreated;
+
+		public ProductFactory(ProductCreated<IProduct> productCreated)
+		{
+			_productCreated = productCreated;
+		}
+
+		public T CreateProduct<T>() where T : IProduct, new()
 		{
 			T product = new T();
 			product.ShowInfo();
+			_productCreated?.Invoke(product);
 			return product;
 		}
 	}
