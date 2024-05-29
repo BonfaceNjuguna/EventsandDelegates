@@ -4,7 +4,7 @@
 	{
 		private static void Main()
 		{
-			ProductCreated<IProduct> productCreatedHandler = OnProductCreated;
+			Action<IProduct> productCreatedHandler = OnProductCreated;
 			ProductFactory productFactory = new ProductFactory(productCreatedHandler);
 
 			IProduct spoon = productFactory.CreateProduct<Spoon>();

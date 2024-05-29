@@ -2,9 +2,9 @@
 {
 	internal class ProductFactory
 	{
-		private readonly ProductCreated<IProduct> _productCreated;
+		private readonly Action<IProduct> _productCreated;
 
-		public ProductFactory(ProductCreated<IProduct> productCreated)
+		public ProductFactory(Action<IProduct> productCreated)
 		{
 			_productCreated = productCreated;
 		}
