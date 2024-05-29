@@ -4,8 +4,8 @@
 	{
 		private static void Main()
 		{
-			Action<IProduct> productCreatedHandler = OnProductCreated;
-			ProductFactory productFactory = new ProductFactory(productCreatedHandler);
+			ProductFactory productFactory = new ProductFactory();
+			productFactory.ProductCreatedEvent += OnProductCreated;
 
 			IProduct spoon = productFactory.CreateProduct<Spoon>();
 			spoon.Price = 10.0;
@@ -29,7 +29,7 @@
 			}
 		}
 
-		private static void OnProductCreated(IProduct product)
+		private static void OnProductCreated(object? sender, IProduct product)
 		{
 			Console.WriteLine($"Product created: {product.GetType().Name}");
 		}

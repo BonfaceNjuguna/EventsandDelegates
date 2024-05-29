@@ -2,19 +2,19 @@
 {
 	internal class ProductFactory
 	{
-		private readonly Action<IProduct> _productCreated;
-
-		public ProductFactory(Action<IProduct> productCreated)
-		{
-			_productCreated = productCreated;
-		}
+		public event EventHandler<IProduct>? ProductCreatedEvent;
 
 		public T CreateProduct<T>() where T : IProduct, new()
 		{
 			T product = new T();
 			product.ShowInfo();
-			_productCreated?.Invoke(product);
+			OnProductCreated(product);
 			return product;
+		}
+
+		protected virtual void OnProductCreated(IProduct product)
+		{
+			ProductCreatedEvent?.Invoke(this, product);
 		}
 	}
 }
